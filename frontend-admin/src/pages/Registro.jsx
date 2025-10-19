@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import "./Auth.css"; // si quieres tener estilos compartidos
+import "./Auth.css";
 
 const API_REGISTER = "http://127.0.0.1:8000/api/auth/register/";
 
@@ -56,36 +56,50 @@ function Registro() {
   return (
     <div className="auth-page">
       <div className="auth-card">
-        <h2>Registro Admin</h2>
-        <p>Crea tu cuenta con correo institucional TECSUP</p>
+        <h2 className="auth-title">Registro Admin</h2>
+        <p className="auth-subtitle">
+          Crea tu cuenta con correo institucional TECSUP
+        </p>
 
         {error && <div className="auth-error">{error}</div>}
 
         <form className="auth-form" onSubmit={handleSubmit}>
-          <label>Correo institucional</label>
-          <input
-            type="email"
-            placeholder="tucorreo@tecsup.edu.pe"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
+          <div className="auth-field">
+            <label className="auth-label">Correo institucional</label>
+            <input
+              type="email"
+              className="auth-input"
+              placeholder="tucorreo@tecsup.edu.pe"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
 
-          <label>Contraseña</label>
-          <input
-            type="password"
-            placeholder="Mínimo 6 caracteres"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
+          <div className="auth-field">
+            <label className="auth-label">Contraseña</label>
+            <input
+              type="password"
+              className="auth-input"
+              placeholder="Mínimo 6 caracteres"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
 
-          <label>Repetir contraseña</label>
-          <input
-            type="password"
-            value={password2}
-            onChange={(e) => setPassword2(e.target.value)}
-          />
+          <div className="auth-field">
+            <label className="auth-label">Repetir contraseña</label>
+            <input
+              type="password"
+              className="auth-input"
+              value={password2}
+              onChange={(e) => setPassword2(e.target.value)}
+              required
+            />
+          </div>
 
-          <button type="submit" className="btn-primario" style={{ marginTop: 12 }}>
+          <button type="submit" className="auth-button">
             Registrarse
           </button>
         </form>

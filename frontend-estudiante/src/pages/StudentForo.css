@@ -1,10 +1,12 @@
 /* ===========================
    CONTENEDOR GENERAL
-   =========================== */
+=========================== */
+
 .foro-page {
   min-height: calc(100vh - 60px);
-  background: #f3f4f6;
-  padding: 30px 0;
+  /* ❌ quitamos gris, dejamos ver el fondo celeste del layout */
+  background: transparent;
+  padding: 32px 0;
   display: flex;
   justify-content: center;
 }
@@ -12,30 +14,34 @@
 .foro-card {
   width: 90%;
   max-width: 1100px;
-  background: #ffffff;
+  /* efecto glass */
+  background: rgba(255, 255, 255, 0.7);
   border-radius: 20px;
   padding: 28px 32px;
-  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+  box-shadow: 0 14px 34px rgba(15, 23, 42, 0.06);
+  backdrop-filter: blur(8px);
 }
 
 /* ===========================
    HEADER
-   =========================== */
+=========================== */
+
 .foro-header h1 {
   font-size: 26px;
-  margin-bottom: 6px;
-  color: #111827;
+  margin-bottom: 4px;
+  color: #0f172a;
 }
 
 .foro-header p {
-  color: #6b7280;
+  color: #64748b;
   font-size: 15px;
-  margin-bottom: 22px;
+  margin-bottom: 20px;
 }
 
 /* ===========================
-   FORMULARIO
-   =========================== */
+   FORMULARIO NUEVA PUBLICACIÓN
+=========================== */
+
 .foro-form {
   display: flex;
   flex-direction: column;
@@ -43,8 +49,9 @@
   margin-bottom: 26px;
   padding: 16px 18px;
   border-radius: 16px;
-  background: #f9fafb;
-  border: 1px solid #e5e7eb;
+  background: rgba(248, 250, 252, 0.9);
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 8px 20px rgba(148, 163, 184, 0.18);
 }
 
 .foro-field {
@@ -77,18 +84,20 @@
 .foro-input:focus,
 .foro-textarea:focus {
   border-color: #2563eb;
-  box-shadow: 0 0 0 1px rgba(37, 99, 235, 0.2);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.18);
 }
 
 /* ===========================
    FOTO
-   =========================== */
+=========================== */
+
 .foro-form-footer {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   gap: 18px;
   margin-top: 6px;
+  flex-wrap: wrap;
 }
 
 .foro-file {
@@ -111,10 +120,11 @@
   font-size: 13px;
   border-radius: 999px;
   border: none;
-  background: #0b61ff;
+  background: linear-gradient(90deg, #3b82f6, #0ea5e9);
   color: #ffffff;
   cursor: pointer;
   gap: 6px;
+  box-shadow: 0 8px 18px rgba(37, 99, 235, 0.45);
 }
 
 .foro-file-btn input {
@@ -139,30 +149,38 @@
 
 /* ===========================
    BOTÓN PUBLICAR
-   =========================== */
+=========================== */
+
 .foro-btn-publicar {
-  background: #0b61ff;
+  background: linear-gradient(90deg, #3b82f6, #0ea5e9);
   color: #ffffff;
   border: none;
   padding: 9px 22px;
   border-radius: 999px;
   font-size: 14px;
   cursor: pointer;
-  transition: background 0.15s, transform 0.05s;
   align-self: flex-end;
+  font-weight: 600;
+  min-width: 110px;
+  box-shadow: 0 12px 24px rgba(37, 99, 235, 0.45);
+  transition: transform 0.12s ease, box-shadow 0.12s ease, opacity 0.12s ease;
 }
 
-.foro-btn-publicar:hover {
-  background: #084bcc;
+.foro-btn-publicar:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 16px 30px rgba(37, 99, 235, 0.55);
 }
 
-.foro-btn-publicar:active {
-  transform: scale(0.97);
+.foro-btn-publicar:disabled {
+  opacity: 0.7;
+  box-shadow: none;
+  cursor: default;
 }
 
 /* ===========================
    LISTA DE POSTS
-   =========================== */
+=========================== */
+
 .foro-lista {
   display: flex;
   flex-direction: column;
@@ -171,12 +189,14 @@
 
 /* ===========================
    TARJETA DE POST
-   =========================== */
+=========================== */
+
 .foro-post-card {
-  background: #f9fafb;
+  background: rgba(249, 250, 251, 0.95);
   border-radius: 16px;
   border: 1px solid #e5e7eb;
   padding: 14px 16px;
+  box-shadow: 0 10px 22px rgba(148, 163, 184, 0.18);
 }
 
 .foro-post-header {
@@ -203,14 +223,19 @@
 }
 
 .foro-post-img-wrapper img {
+  display: block;
   max-width: 100%;
+  max-height: 360px;
+  object-fit: contain;          /* que no se corte la imagen */
   border-radius: 12px;
   border: 1px solid #d1d5db;
+  background: #ffffff;
 }
 
 /* ===========================
    CONTENIDO DEL POST
-   =========================== */
+=========================== */
+
 .foro-post-contenido {
   margin-top: 10px;
   font-size: 14px;
@@ -220,7 +245,8 @@
 
 /* ===========================
    BOTÓN ELIMINAR POST
-   =========================== */
+=========================== */
+
 .btn-eliminar-post {
   background: #fee2e2;
   color: #b91c1c;
@@ -237,7 +263,8 @@
 
 /* ===========================
    COMENTARIOS
-   =========================== */
+=========================== */
+
 .foro-comentarios {
   margin-top: 10px;
 }
@@ -312,9 +339,30 @@
 
 /* ===========================
    ERRORES
-   =========================== */
+=========================== */
+
 .error-text {
   color: #b91c1c;
   font-size: 13px;
   margin-top: 6px;
+}
+
+/* ===========================
+   RESPONSIVE
+=========================== */
+
+@media (max-width: 640px) {
+  .foro-card {
+    padding: 22px 16px;
+  }
+
+  .foro-form-footer {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .foro-btn-publicar {
+    align-self: stretch;
+    text-align: center;
+  }
 }

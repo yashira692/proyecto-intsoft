@@ -1,0 +1,123 @@
+/* CONTENEDOR */
+.student-dashboard {
+  max-width: 1200px;
+  margin: 0 auto;
+  font-family: "Inter", "Poppins", "Space Grotesk", sans-serif;
+}
+
+/* HERO */
+.student-hero {
+  text-align: left;
+  margin-bottom: 1.8rem;
+}
+
+.student-hero-title {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.student-hero-subtitle {
+  margin-top: 0.4rem;
+  font-size: 1rem;
+  color: #6b7280;
+  max-width: 700px;
+}
+
+/* TARJETAS */
+.student-quick-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.2rem;
+  margin-top: 2rem;
+}
+
+.student-quick-card {
+  border-radius: 1.1rem;
+  padding: 1.4rem;
+  background: #ffffffcc;
+  backdrop-filter: blur(6px);
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 12px 28px rgba(148, 163, 184, 0.28);
+  transition: 0.2s ease;
+}
+
+.student-quick-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 38px rgba(148, 163, 184, 0.38);
+}
+
+.student-quick-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: #eff6ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  margin-bottom: 0.6rem;
+}
+
+.student-quick-card h2 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.student-quick-card p {
+  font-size: 0.9rem;
+  color: #6b7280;
+  margin-bottom: 0.6rem;
+}
+
+.student-quick-link {
+  font-size: 0.86rem;
+  color: #0ea5e9;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+/* FRASE CENTRAL */
+.student-center-quote {
+  display: flex;
+  justify-content: center;
+  margin-top: 2.4rem;
+}
+
+.student-quote-card {
+  width: 100%;
+  max-width: 800px;
+  padding: 1.6rem 2rem;
+  text-align: center;
+  border-radius: 1.2rem;
+  background: linear-gradient(135deg, #e0f2fe, #f0f9ff);
+  border: 1px solid #bae6fd;
+  box-shadow: 0 22px 45px rgba(56, 189, 248, 0.25);
+}
+
+.student-quote {
+  margin: 0;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.student-quote-author {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  color: #1e3a8a;
+  font-weight: 500;
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .student-quick-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .student-hero {
+    text-align: center;
+  }
+}

@@ -1,20 +1,20 @@
 import { useState } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
+
 import Navbar from "./components/Navbar.jsx";
 import Grupos from "./pages/Grupos.jsx";
 import Login from "./pages/Login.jsx";
 import Registro from "./pages/Registro.jsx";
-import Home from "./pages/Home.jsx";   // 👈 importamos
+// import Home from "./pages/Home.jsx";   // Ya no lo usamos como inicio
 import BaseTec from "./pages/BaseTec.jsx";
 import ForoTec from "./pages/ForoTec.jsx";
-import GroupFeedback from "./pages/GroupFeedback";
-
-
-
+import GroupFeedback from "./pages/GroupFeedback.jsx";
+import AdminDashboard from "./pages/AdminDashboard.jsx";  // 👈 nuevo dashboard admin
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
+  // 🔒 Rutas públicas (sin sesión)
   if (!isLoggedIn) {
     return (
       <Routes>
@@ -23,22 +23,25 @@ function App() {
           element={<Login onLogin={() => setIsLoggedIn(true)} />}
         />
         <Route path="/registro" element={<Registro />} />
-        <Route path="*" element={<Navigate to="/login" />} />
+        <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>
     );
   }
 
+  // 🔐 Rutas privadas (con sesión)
   return (
     <>
-      <Navbar />
       <Routes>
-        <Route path="/sugerencias-grupos" element={<GroupFeedback />} />
+        {/* Dashboard principal del admin */}
+        <Route path="/" element={<AdminDashboard />} />
 
-        <Route path="/" element={<Home />} />          {/* 👈 aquí */}
+        {/* Otras vistas del admin */}
+        <Route path="/sugerencias-grupos" element={<GroupFeedback />} />
         <Route path="/grupos" element={<Grupos />} />
-        <Route path="/basetec" element={<BaseTec />} />   {/* 👈 aquí */}
         <Route path="/forotec" element={<ForoTec />} />
-        <Route path="*" element={<Navigate to="/" />} />
+
+        {/* Cualquier ruta rara te lleva al dashboard */}
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </>
   );

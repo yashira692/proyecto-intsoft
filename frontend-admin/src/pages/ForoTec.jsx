@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import "./ForoTec.css";
+import AdminLayout from "../layouts/AdminLayout";
 
 const API_BASE = "http://127.0.0.1:8000/api";
 const POSTS_URL = `${API_BASE}/posts/`;
@@ -62,8 +63,7 @@ function ForoTec() {
     fetchPosts();
   }, []);
 
-  // ------------- COMENTARIOS (leer desde Django) -------------
-
+  // ----- COMENTARIOS -----
   const fetchComentarios = async (postId) => {
     setCargandoComentarios((prev) => ({ ...prev, [postId]: true }));
     try {
@@ -86,7 +86,6 @@ function ForoTec() {
   const toggleRespuestas = (idPost) => {
     setPostSeleccionadoId((prev) => {
       const nuevo = prev === idPost ? null : idPost;
-      // si lo acabamos de abrir y aún no hay comentarios cargados, pedirlos
       if (nuevo === idPost && !comentarios[idPost]) {
         fetchComentarios(idPost);
       }
@@ -94,7 +93,7 @@ function ForoTec() {
     });
   };
 
-  // 2️⃣ Eliminar publicación (DELETE API)
+  // 2️⃣ Eliminar publicación
   const eliminarPost = async (idPost) => {
     if (!window.confirm("¿Seguro que deseas eliminar esta publicación?")) return;
 
@@ -121,7 +120,7 @@ function ForoTec() {
     }
   };
 
-  // Modal para nueva publicación
+  // ----- MODAL NUEVA PUBLICACIÓN -----
   const abrirModalNueva = () => {
     setNuevoPost({
       titulo: "",
@@ -163,7 +162,7 @@ function ForoTec() {
     }
   };
 
-  // 3️⃣ Crear publicación (POST con FormData)
+  // 3️⃣ Crear publicación
   const crearPublicacion = async (e) => {
     e.preventDefault();
 
@@ -218,189 +217,199 @@ function ForoTec() {
   };
 
   return (
-    <div className="foro-page">
-      <div className="foro-card">
-        <div className="foro-header">
-          <div>
-            <h1>ForoTEC</h1>
-            <p>
-              Visualiza, publica y modera las publicaciones realizadas por los
-              estudiantes y el profesor.
-            </p>
+    <AdminLayout>
+      {/* igual que Grupos: grupos-page + grupos-card */}
+      <div className="foro-page grupos-page">
+        <div className="grupos-card foro-card">
+          <div className="foro-header">
+            <div>
+              <h2>ForoTEC</h2>
+              <p>
+                Visualiza, publica y modera las publicaciones realizadas por los
+                estudiantes y el profesor.
+              </p>
+            </div>
+
+            <button
+              className="btn-nueva-publicacion btn-primario"
+              onClick={abrirModalNueva}
+            >
+              + Nueva publicación
+            </button>
           </div>
 
-          <button className="btn-nueva-publicacion" onClick={abrirModalNueva}>
-            + Nueva publicación
-          </button>
+          {cargando ? (
+            <p className="foro-empty">Cargando publicaciones...</p>
+          ) : posts.length === 0 ? (
+            <p className="foro-empty">No hay publicaciones en el foro.</p>
+          ) : (
+            <div className="foro-posts foro-lista">
+              {posts.map((post) => {
+                const listaComentarios = comentarios[post.id] || [];
+                const seleccionado = postSeleccionadoId === post.id;
+                const cargandoC = cargandoComentarios[post.id];
+
+                return (
+                  <article key={post.id} className="foro-post-card">
+                    <div className="foro-post-header">
+                      <div>
+                        <h3>{post.titulo}</h3>
+                        <span className="foro-post-meta">
+                          {post.autor} · {post.fecha}
+                        </span>
+                      </div>
+                      <button
+                        className="btn-eliminar-post btn-secundario"
+                        onClick={() => eliminarPost(post.id)}
+                      >
+                        Eliminar
+                      </button>
+                    </div>
+
+                    {post.imagenUrl && (
+                      <div className="foro-post-imagen">
+                        <img src={post.imagenUrl} alt="Adjunto" />
+                      </div>
+                    )}
+
+                    <p className="foro-post-contenido">{post.contenido}</p>
+
+                    <div className="foro-post-footer">
+                      <button
+                        className="foro-btn-comentarios"
+                        onClick={() => toggleRespuestas(post.id)}
+                      >
+                        {seleccionado
+                          ? `Ocultar respuestas (${listaComentarios.length})`
+                          : `Ver respuestas (${listaComentarios.length})`}
+                      </button>
+                    </div>
+
+                    {seleccionado && (
+                      <div className="foro-respuestas">
+                        {cargandoC && (
+                          <p className="foro-sin-respuestas">
+                            Cargando comentarios...
+                          </p>
+                        )}
+
+                        {!cargandoC && listaComentarios.length === 0 && (
+                          <p className="foro-sin-respuestas">
+                            Esta publicación no tiene respuestas.
+                          </p>
+                        )}
+
+                        {!cargandoC &&
+                          listaComentarios.map((c) => (
+                            <div key={c.id} className="foro-respuesta-item">
+                              <div className="foro-respuesta-texto">
+                                <p className="foro-respuesta-contenido">
+                                  {c.contenido}
+                                </p>
+                                <p className="foro-respuesta-meta">
+                                  {c.autor} ·{" "}
+                                  {new Date(
+                                    c.creado_en
+                                  ).toLocaleString("es-PE", {
+                                    year: "numeric",
+                                    month: "2-digit",
+                                    day: "2-digit",
+                                    hour: "2-digit",
+                                    minute: "2-digit",
+                                  })}
+                                </p>
+                              </div>
+                            </div>
+                          ))}
+                      </div>
+                    )}
+                  </article>
+                );
+              })}
+            </div>
+          )}
         </div>
 
-        {cargando ? (
-          <p className="foro-empty">Cargando publicaciones...</p>
-        ) : posts.length === 0 ? (
-          <p className="foro-empty">No hay publicaciones en el foro.</p>
-        ) : (
-          <div className="foro-posts foro-lista">
-            {posts.map((post) => {
-              const listaComentarios = comentarios[post.id] || [];
-              const seleccionado = postSeleccionadoId === post.id;
-              const cargandoC = cargandoComentarios[post.id];
+        {/* MODAL: Nueva publicación (Profesor) */}
+        {mostrarModal && (
+          <div className="foro-modal-overlay">
+            <div className="foro-modal-card">
+              <div className="foro-modal-header">
+                <h3>Nueva publicación (Profesor)</h3>
+                <button
+                  className="foro-modal-close"
+                  onClick={cerrarModalNueva}
+                >
+                  ✕
+                </button>
+              </div>
 
-              return (
-                <article key={post.id} className="foro-post-card">
-                  <div className="foro-post-header">
-                    <div>
-                      <h3>{post.titulo}</h3>
-                      <span className="foro-post-meta">
-                        {post.autor} · {post.fecha}
-                      </span>
-                    </div>
-                    <button
-                      className="btn-eliminar-post"
-                      onClick={() => eliminarPost(post.id)}
-                    >
-                      Eliminar
-                    </button>
-                  </div>
+              <form className="foro-modal-form" onSubmit={crearPublicacion}>
+                <div className="foro-modal-field">
+                  <label>Título</label>
+                  <input
+                    name="titulo"
+                    value={nuevoPost.titulo}
+                    onChange={handleChangeNuevoPost}
+                    placeholder="Escribe el título de la publicación"
+                  />
+                </div>
 
-                  {post.imagenUrl && (
-                    <div className="foro-post-imagen">
-                      <img src={post.imagenUrl} alt="Adjunto" />
-                    </div>
-                  )}
+                <div className="foro-modal-field">
+                  <label>Contenido</label>
+                  <textarea
+                    name="contenido"
+                    value={nuevoPost.contenido}
+                    onChange={handleChangeNuevoPost}
+                    rows={4}
+                  />
+                </div>
 
-                  <p className="foro-post-contenido">{post.contenido}</p>
+                <div className="foro-modal-field">
+                  <label>Autor</label>
+                  <input
+                    name="autor"
+                    value={nuevoPost.autor}
+                    onChange={handleChangeNuevoPost}
+                  />
+                </div>
 
-                  <div className="foro-post-footer">
-                    <button
-                      className="foro-btn-comentarios"
-                      onClick={() => toggleRespuestas(post.id)}
-                    >
-                      {seleccionado
-                        ? `Ocultar respuestas (${listaComentarios.length})`
-                        : `Ver respuestas (${listaComentarios.length})`}
-                    </button>
-                  </div>
-
-                  {seleccionado && (
-                    <div className="foro-respuestas">
-                      {cargandoC && (
-                        <p className="foro-sin-respuestas">
-                          Cargando comentarios...
-                        </p>
-                      )}
-
-                      {!cargandoC && listaComentarios.length === 0 && (
-                        <p className="foro-sin-respuestas">
-                          Esta publicación no tiene respuestas.
-                        </p>
-                      )}
-
-                      {!cargandoC &&
-                        listaComentarios.map((c) => (
-                          <div key={c.id} className="foro-respuesta-item">
-                            <div className="foro-respuesta-texto">
-                              <p className="foro-respuesta-contenido">
-                                {c.contenido}
-                              </p>
-                              <p className="foro-respuesta-meta">
-                                {c.autor} ·{" "}
-                                {new Date(c.creado_en).toLocaleString("es-PE", {
-                                  year: "numeric",
-                                  month: "2-digit",
-                                  day: "2-digit",
-                                  hour: "2-digit",
-                                  minute: "2-digit",
-                                })}
-                              </p>
-                            </div>
-                          </div>
-                        ))}
+                <div className="foro-modal-field">
+                  <label>Imagen (opcional)</label>
+                  <input
+                    type="file"
+                    name="imagen"
+                    accept="image/*"
+                    onChange={handleChangeNuevoPost}
+                  />
+                  {nuevoPost.imagenPreview && (
+                    <div className="foro-modal-preview">
+                      <img
+                        src={nuevoPost.imagenPreview}
+                        alt="Previsualización"
+                      />
                     </div>
                   )}
-                </article>
-              );
-            })}
+                </div>
+
+                <div className="foro-modal-actions">
+                  <button
+                    type="button"
+                    className="btn-secundario"
+                    onClick={cerrarModalNueva}
+                  >
+                    Cancelar
+                  </button>
+                  <button type="submit" className="btn-primario">
+                    Publicar
+                  </button>
+                </div>
+              </form>
+            </div>
           </div>
         )}
       </div>
-
-      {/* MODAL: Nueva publicación (Profesor) */}
-      {mostrarModal && (
-        <div className="foro-modal-overlay">
-          <div className="foro-modal-card">
-            <div className="foro-modal-header">
-              <h3>Nueva publicación (Profesor)</h3>
-              <button className="foro-modal-close" onClick={cerrarModalNueva}>
-                ✕
-              </button>
-            </div>
-
-            <form className="foro-modal-form" onSubmit={crearPublicacion}>
-              <div className="foro-modal-field">
-                <label>Título</label>
-                <input
-                  name="titulo"
-                  value={nuevoPost.titulo}
-                  onChange={handleChangeNuevoPost}
-                  placeholder="Escribe el título de la publicación"
-                />
-              </div>
-
-              <div className="foro-modal-field">
-                <label>Contenido</label>
-                <textarea
-                  name="contenido"
-                  value={nuevoPost.contenido}
-                  onChange={handleChangeNuevoPost}
-                  rows={4}
-                  placeholder="Describe el anuncio, duda o información..."
-                />
-              </div>
-
-              <div className="foro-modal-field">
-                <label>Autor</label>
-                <input
-                  name="autor"
-                  value={nuevoPost.autor}
-                  onChange={handleChangeNuevoPost}
-                />
-              </div>
-
-              <div className="foro-modal-field">
-                <label>Imagen (opcional)</label>
-                <input
-                  type="file"
-                  name="imagen"
-                  accept="image/*"
-                  onChange={handleChangeNuevoPost}
-                />
-                {nuevoPost.imagenPreview && (
-                  <div className="foro-modal-preview">
-                    <img
-                      src={nuevoPost.imagenPreview}
-                      alt="Previsualización"
-                    />
-                  </div>
-                )}
-              </div>
-
-              <div className="foro-modal-actions">
-                <button
-                  type="button"
-                  className="btn-secundario"
-                  onClick={cerrarModalNueva}
-                >
-                  Cancelar
-                </button>
-                <button type="submit" className="btn-primario">
-                  Publicar
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      )}
-    </div>
+    </AdminLayout>
   );
 }
 

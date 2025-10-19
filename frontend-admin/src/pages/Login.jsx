@@ -20,7 +20,6 @@ function Login({ onLogin }) {
     }
 
     try {
-      // OJO: simplejwt espera "username", pero nosotros usamos el email como username
       const res = await fetch(API_LOGIN, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -33,13 +32,11 @@ function Login({ onLogin }) {
       }
 
       const data = await res.json();
-      // data = { access: "...", refresh: "..." }
 
       localStorage.setItem("token", data.access);
       localStorage.setItem("refresh", data.refresh);
       localStorage.setItem("email", email);
 
-      // Avisamos al App que está logueado
       onLogin();
       navigate("/");
     } catch (err) {
@@ -51,29 +48,39 @@ function Login({ onLogin }) {
   return (
     <div className="auth-page">
       <div className="auth-card">
-        <h2>Login Admin</h2>
-        <p>Ingresa con tu correo institucional TECSUP</p>
+        <h2 className="auth-title">Login Admin</h2>
+        <p className="auth-subtitle">
+          Ingresa con tu correo institucional TECSUP
+        </p>
 
         {error && <div className="auth-error">{error}</div>}
 
         <form className="auth-form" onSubmit={handleSubmit}>
-          <label>Correo institucional</label>
-          <input
-            type="email"
-            placeholder="tucorreo@tecsup.edu.pe"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
+          <div className="auth-field">
+            <label className="auth-label">Correo institucional</label>
+            <input
+              type="email"
+              className="auth-input"
+              placeholder="tucorreo@tecsup.edu.pe"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
 
-          <label>Contraseña</label>
-          <input
-            type="password"
-            placeholder="Tu contraseña"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
+          <div className="auth-field">
+            <label className="auth-label">Contraseña</label>
+            <input
+              type="password"
+              className="auth-input"
+              placeholder="Tu contraseña"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
 
-          <button type="submit" className="btn-primario" style={{ marginTop: 12 }}>
+          <button type="submit" className="auth-button">
             Iniciar sesión
           </button>
         </form>

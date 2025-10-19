@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./Grupos.css";
 import VoiceAddGroupBubble from "../components/VoiceAddGroupBubble";
+import AdminLayout from "../layouts/AdminLayout";
 
 const API_URL = "http://127.0.0.1:8000/api/grupos/";
 
@@ -186,191 +187,193 @@ function Grupos() {
   });
 
   return (
-    <div className="grupos-page">
-      <div className="grupos-card">
-        <div className="grupos-header">
-          <div>
-            <h2>Gestión de Grupos</h2>
-            <p>Administra los grupos de proyecto</p>
+    <AdminLayout>
+      <div className="grupos-page">
+        <div className="grupos-card">
+          <div className="grupos-header">
+            <div>
+              <h2>Gestión de Grupos</h2>
+              <p>Administra los grupos de proyecto</p>
+            </div>
+
+            <button className="btn-agregar" onClick={abrirAgregar}>
+              + Agregar Grupo
+            </button>
           </div>
 
-          <button className="btn-agregar" onClick={abrirAgregar}>
-            + Agregar Grupo
-          </button>
-        </div>
+          {/* 🔍 Barra de filtros con estilo admin */}
+          <div className="grupos-filtros admin-filtros">
+            <div className="admin-filtro">
+              <label className="admin-filtro-label">Buscar</label>
+              <div className="admin-filtro-input-wrapper">
+                <span className="admin-filtro-icon">🔎</span>
+                <input
+                  className="admin-filtro-input"
+                  type="text"
+                  placeholder="Número de grupo, sección, integrantes o tema..."
+                  value={busqueda}
+                  onChange={(e) => setBusqueda(e.target.value)}
+                />
+              </div>
+            </div>
 
-        {/* 🔍 Barra de filtros con estilo admin */}
-        <div className="grupos-filtros admin-filtros">
-          <div className="admin-filtro">
-            <label className="admin-filtro-label">Buscar</label>
-            <div className="admin-filtro-input-wrapper">
-              <span className="admin-filtro-icon">🔎</span>
-              <input
-                className="admin-filtro-input"
-                type="text"
-                placeholder="Número de grupo, sección, integrantes o tema..."
-                value={busqueda}
-                onChange={(e) => setBusqueda(e.target.value)}
-              />
+            <div className="admin-filtro">
+              <label className="admin-filtro-label">Sección</label>
+              <select
+                className="admin-filtro-select"
+                value={filtroSeccion}
+                onChange={(e) => setFiltroSeccion(e.target.value)}
+              >
+                <option value="">Todas las secciones</option>
+                {secciones.map((sec) => (
+                  <option key={sec} value={sec}>
+                    Sección {sec}
+                  </option>
+                ))}
+              </select>
             </div>
           </div>
 
-          <div className="admin-filtro">
-            <label className="admin-filtro-label">Sección</label>
-            <select
-              className="admin-filtro-select"
-              value={filtroSeccion}
-              onChange={(e) => setFiltroSeccion(e.target.value)}
-            >
-              <option value="">Todas las secciones</option>
-              {secciones.map((sec) => (
-                <option key={sec} value={sec}>
-                  Sección {sec}
-                </option>
-              ))}
-            </select>
-          </div>
-        </div>
-
-        {cargando ? (
-          <p>Cargando grupos...</p>
-        ) : (
-          <table className="grupos-table">
-            <thead>
-              <tr>
-                <th>N° Grupo</th>
-                <th>Sección</th>
-                <th>Integrantes</th>
-                <th>Tema</th>
-                <th>Descripción</th>
-                <th>Acciones</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              {gruposFiltrados.length === 0 ? (
+          {cargando ? (
+            <p>Cargando grupos...</p>
+          ) : (
+            <table className="grupos-table">
+              <thead>
                 <tr>
-                  <td colSpan="6" style={{ textAlign: "center", padding: 16 }}>
-                    No hay grupos que coincidan con el filtro
-                  </td>
+                  <th>N° Grupo</th>
+                  <th>Sección</th>
+                  <th>Integrantes</th>
+                  <th>Tema</th>
+                  <th>Descripción</th>
+                  <th>Acciones</th>
                 </tr>
-              ) : (
-                gruposFiltrados.map((g) => (
-                  <tr key={g.id}>
-                    <td>{g.numero}</td>
-                    <td>{g.seccion}</td>
-                    <td>{g.integrantes}</td>
-                    <td>{g.tema}</td>
-                    <td>{g.descripcion}</td>
-                    <td className="acciones">
-                      <span
-                        className="icon-edit"
-                        onClick={() => abrirEditar(g)}
-                      >
-                        ✏️
-                      </span>
-                      <span
-                        className="icon-delete"
-                        onClick={() => eliminarGrupo(g.id)}
-                      >
-                        ❌
-                      </span>
+              </thead>
+
+              <tbody>
+                {gruposFiltrados.length === 0 ? (
+                  <tr>
+                    <td colSpan="6" style={{ textAlign: "center", padding: 16 }}>
+                      No hay grupos que coincidan con el filtro
                     </td>
                   </tr>
-                ))
-              )}
-            </tbody>
-          </table>
-        )}
-      </div>
-
-      {/* MODAL */}
-      {modalMode && (
-        <div className="modal-overlay">
-          <div className="modal-card">
-            <div className="modal-header">
-              <div>
-                <h3>
-                  {modalMode === "add"
-                    ? "Agregar Nuevo Grupo"
-                    : "Editar Grupo"}
-                </h3>
-                <p>Completa la información del grupo de proyecto</p>
-              </div>
-              <button className="modal-close" onClick={cerrarModal}>
-                ✕
-              </button>
-            </div>
-
-            <form className="modal-form" onSubmit={guardarGrupo}>
-              <div className="modal-grid">
-                <div>
-                  <label>Número de Grupo</label>
-                  <input
-                    name="numero"
-                    value={form.numero}
-                    onChange={handleChange}
-                  />
-                </div>
-                <div>
-                  <label>Sección</label>
-                  <input
-                    name="seccion"
-                    value={form.seccion}
-                    onChange={handleChange}
-                  />
-                </div>
-              </div>
-
-              <div className="modal-field">
-                <label>Integrantes</label>
-                <input
-                  name="integrantes"
-                  value={form.integrantes}
-                  onChange={handleChange}
-                  placeholder="Nombres separados por comas"
-                />
-              </div>
-
-              <div className="modal-field">
-                <label>Tema del Proyecto</label>
-                <input
-                  name="tema"
-                  value={form.tema}
-                  onChange={handleChange}
-                />
-              </div>
-
-              <div className="modal-field">
-                <label>Descripción</label>
-                <textarea
-                  name="descripcion"
-                  value={form.descripcion}
-                  onChange={handleChange}
-                  rows={3}
-                />
-              </div>
-
-              <div className="modal-actions">
-                <button
-                  type="button"
-                  className="btn-secundario"
-                  onClick={cerrarModal}
-                >
-                  Cancelar
-                </button>
-                <button type="submit" className="btn-primario">
-                  Guardar Grupo
-                </button>
-              </div>
-            </form>
-          </div>
+                ) : (
+                  gruposFiltrados.map((g) => (
+                    <tr key={g.id}>
+                      <td>{g.numero}</td>
+                      <td>{g.seccion}</td>
+                      <td>{g.integrantes}</td>
+                      <td>{g.tema}</td>
+                      <td>{g.descripcion}</td>
+                      <td className="acciones">
+                        <span
+                          className="icon-edit"
+                          onClick={() => abrirEditar(g)}
+                        >
+                          ✏️
+                        </span>
+                        <span
+                          className="icon-delete"
+                          onClick={() => eliminarGrupo(g.id)}
+                        >
+                          ❌
+                        </span>
+                      </td>
+                    </tr>
+                  ))
+                )}
+              </tbody>
+            </table>
+          )}
         </div>
-      )}
 
-      {/* Burbuja de voz para crear grupos */}
-      <VoiceAddGroupBubble onNewGroup={handleNewGroup} />
-    </div>
+        {/* MODAL */}
+        {modalMode && (
+          <div className="modal-overlay">
+            <div className="modal-card">
+              <div className="modal-header">
+                <div>
+                  <h3>
+                    {modalMode === "add"
+                      ? "Agregar Nuevo Grupo"
+                      : "Editar Grupo"}
+                  </h3>
+                  <p>Completa la información del grupo de proyecto</p>
+                </div>
+                <button className="modal-close" onClick={cerrarModal}>
+                  ✕
+                </button>
+              </div>
+
+              <form className="modal-form" onSubmit={guardarGrupo}>
+                <div className="modal-grid">
+                  <div>
+                    <label>Número de Grupo</label>
+                    <input
+                      name="numero"
+                      value={form.numero}
+                      onChange={handleChange}
+                    />
+                  </div>
+                  <div>
+                    <label>Sección</label>
+                    <input
+                      name="seccion"
+                      value={form.seccion}
+                      onChange={handleChange}
+                    />
+                  </div>
+                </div>
+
+                <div className="modal-field">
+                  <label>Integrantes</label>
+                  <input
+                    name="integrantes"
+                    value={form.integrantes}
+                    onChange={handleChange}
+                    placeholder="Nombres separados por comas"
+                  />
+                </div>
+
+                <div className="modal-field">
+                  <label>Tema del Proyecto</label>
+                  <input
+                    name="tema"
+                    value={form.tema}
+                    onChange={handleChange}
+                  />
+                </div>
+
+                <div className="modal-field">
+                  <label>Descripción</label>
+                  <textarea
+                    name="descripcion"
+                    value={form.descripcion}
+                    onChange={handleChange}
+                    rows={3}
+                  />
+                </div>
+
+                <div className="modal-actions">
+                  <button
+                    type="button"
+                    className="btn-secundario"
+                    onClick={cerrarModal}
+                  >
+                    Cancelar
+                  </button>
+                  <button type="submit" className="btn-primario">
+                    Guardar Grupo
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        )}
+
+        {/* Burbuja de voz para crear grupos */}
+        <VoiceAddGroupBubble onNewGroup={handleNewGroup} />
+      </div>
+    </AdminLayout>
   );
 }
 

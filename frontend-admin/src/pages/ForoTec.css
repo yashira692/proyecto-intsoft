@@ -1,16 +1,17 @@
 /* CONTENEDOR GENERAL */
+/* CONTENEDOR GENERAL */
 .foro-page {
   min-height: calc(100vh - 70px);
   display: flex;
   justify-content: center;
   padding: 2rem 1rem 3rem;
-  background: #f3f4f6;
+  background: transparent; /* 👈 sin gris, deja ver el fondo pastel */
 }
 
 .foro-card {
   width: 100%;
   max-width: 900px;
-  background: #ffffff;
+  background: #ffffffee;       /* blanco un poco translúcido, igual que Grupos */
   border-radius: 18px;
   padding: 2rem 2.25rem;
   box-shadow: 0 18px 45px rgba(15, 23, 42, 0.12);
@@ -145,13 +146,17 @@
   border-radius: 12px;
   overflow: hidden;
   border: 1px solid #e5e7eb;
+  display: flex;
+  justify-content: center; /* Centra la imagen */
+  align-items: center;
 }
 
 .foro-post-imagen img {
-  display: block;
-  width: 100%;
-  height: auto;
+  max-width: 100%;     /* 👈 Se achica al ancho del card */
+  height: auto;        /* 👈 Mantiene proporción */
+  object-fit: contain; /* 👈 Asegura que NO se recorte */
 }
+
 
 /* FOOTER DEL POST */
 .foro-post-footer {
@@ -207,24 +212,31 @@
 }
 
 /* MODAL (ya si quieres mejorarlo también) */
+/* Fondo del modal: ahora permite scroll vertical */
 .foro-modal-overlay {
   position: fixed;
   inset: 0;
   background: rgba(15, 23, 42, 0.35);
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: flex-start;      /* pegado arriba */
+  padding: 2rem 1rem;           /* espacio alrededor */
   z-index: 30;
+  overflow-y: auto;             /* 👈 barra de desplazamiento si es necesario */
 }
 
+/* Tarjeta del modal: se recorta y hace scroll interno si es muy alta */
 .foro-modal-card {
   width: 100%;
   max-width: 540px;
+  max-height: 90vh;             /* no pasa de la altura de la ventana */
   background: #ffffff;
   border-radius: 16px;
   padding: 1.6rem 1.8rem 1.4rem;
   box-shadow: 0 22px 60px rgba(15, 23, 42, 0.45);
+  overflow-y: auto;             /* 👈 scroll dentro de la tarjeta */
 }
+
 
 .foro-modal-header {
   display: flex;

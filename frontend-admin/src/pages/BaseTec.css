@@ -1,148 +1,184 @@
+/* ===== CONTENEDOR GENERAL ===== */
+
+/* SEPARACIÓN REAL ENTRE EL TOPBAR Y EL CHAT */
 .basetec-page {
+  margin-top: 25px !important;   /* 👈 ESTE ES EL FIX REAL */
+  padding-top: 10px;
+  padding-bottom: 20px;
   display: flex;
   justify-content: center;
-  padding: 32px 16px;
 }
 
+/* Card centrada, sin height fijo */
 .basetec-card {
   width: 100%;
   max-width: 900px;
-  background: white;
-  border-radius: 24px;
-  padding: 20px 24px 16px;
-  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.16);
+  background: #ffffffee;
+  border-radius: 1.4rem;
+  padding: 1.8rem 2rem 1.7rem;
+  box-shadow: 0 18px 40px rgba(148, 163, 184, 0.3);
+  border: 1px solid #e2e8f0;
   display: flex;
   flex-direction: column;
-  max-height: 75vh;
 }
+
+/* ===== HEADER ===== */
 
 .basetec-header {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid #e2e8f0;
+  gap: 0.9rem;
+  margin-bottom: 1rem;
 }
 
 .basetec-avatar {
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   border-radius: 999px;
-  background: #4f46e5;
+  background: radial-gradient(circle at 30% 20%, #bfdbfe, #60a5fa);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
-  font-size: 22px;
+  font-size: 1.4rem;
+  box-shadow: 0 10px 20px rgba(96, 165, 250, 0.5);
 }
 
 .basetec-header h2 {
   margin: 0;
-  font-size: 18px;
+  font-size: 1.35rem;
   font-weight: 700;
+  color: #0f172a;
 }
 
 .basetec-header p {
-  margin: 2px 0 0;
-  font-size: 13px;
+  margin: 0.2rem 0 0;
+  font-size: 0.9rem;
   color: #64748b;
 }
 
-/* ÁREA DEL CHAT */
+/* ===== CHAT ===== */
 
 .basetec-chat {
-  margin-top: 14px;
-  flex: 1;
-  background: #f5f7ff;
-  border-radius: 16px;
-  padding: 12px 10px;
+  margin-top: 0.6rem;
+  margin-bottom: 1rem;
+  padding: 1rem 1rem 0.8rem;
+  border-radius: 1.1rem;
+  background: radial-gradient(circle at top, #e0f2fe 0%, #f8fafc 40%, #ffffff 100%);
+  border: 1px solid #e2e8f0;
   overflow-y: auto;
+  max-height: 320px;
+
+  /* Contenedor de mensajes como columna */
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  justify-content: flex-end;   /* 👈 CLAVE: los mensajes quedan pegados abajo */
 }
+
+
 
 /* Mensajes */
 
-.chat-message {
-  max-width: 70%;
-  padding: 8px 12px;
-  border-radius: 14px;
-  font-size: 14px;
-  line-height: 1.4;
-  white-space: pre-wrap; /* respeta saltos de línea de la IA */
+
+.chat-message p {
+  margin: 0;
 }
 
-/* Bot: izquierda, burbuja blanca */
+.chat-message {
+  max-width: 75%;
+  margin-bottom: 0.6rem;
+  padding: 0.6rem 0.85rem;
+  border-radius: 1rem;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  box-shadow: 0 8px 20px rgba(148, 163, 184, 0.25);
+}
 
+/* Bot (izquierda) */
 .chat-bot {
   align-self: flex-start;
   background: #ffffff;
-  border: 1px solid #e2e8f0;
-  border-bottom-left-radius: 4px;
+  border-bottom-left-radius: 0.2rem;
+  color: #111827;
 }
 
-/* Usuario: derecha, burbuja azul */
-
+/* Usuario (derecha) */
 .chat-user {
   align-self: flex-end;
-  background: #4f46e5;
-  color: white;
-  border-bottom-right-radius: 4px;
+  background: linear-gradient(135deg, #3b82f6, #0ea5e9);
+  color: #f9fafb;
+  border-bottom-right-radius: 0.2rem;
 }
 
-/* Input de mensaje */
+
+/* ===== INPUT AREA ===== */
 
 .basetec-input-area {
   display: flex;
-  gap: 10px;
-  margin-top: 12px;
   align-items: center;
+  gap: 0.7rem;
+  margin-top: 0.4rem;
+  padding-top: 0.7rem;
+  border-top: 1px solid #e5e7eb;
 }
 
 .basetec-input-area input {
   flex: 1;
-  padding: 10px 14px;
   border-radius: 999px;
-  border: 1px solid #d0d7e2;
-  font-size: 14px;
+  border: 1px solid #dbe5f0;
+  padding: 0.6rem 0.9rem;
+  font-size: 0.9rem;
   outline: none;
+  background: #f9fbff;
 }
 
 .basetec-input-area input:focus {
-  border-color: #4f46e5;
-  box-shadow: 0 0 0 1px rgba(79, 70, 229, 0.15);
+  border-color: #60a5fa;
+  box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.25);
+  background: #ffffff;
 }
 
 .basetec-input-area button {
-  padding: 9px 18px;
   border-radius: 999px;
   border: none;
-  background: #4f46e5;
-  color: white;
-  font-size: 14px;
+  padding: 0.55rem 1.1rem;
+  font-size: 0.9rem;
   font-weight: 600;
   cursor: pointer;
+  background: linear-gradient(90deg, #3b82f6, #0ea5e9);
+  color: #f9fafb;
+  box-shadow: 0 10px 24px rgba(37, 99, 235, 0.45);
+  min-width: 90px;
 }
 
-.basetec-input-area button[disabled] {
+.basetec-input-area button:disabled {
   opacity: 0.7;
   cursor: default;
+  box-shadow: none;
 }
 
-.basetec-input-area button:hover:not([disabled]) {
-  background: #4338ca;
+/* ===== SCROLLBAR CHAT ===== */
+
+.basetec-chat::-webkit-scrollbar {
+  width: 6px;
 }
 
-/* Responsive */
+.basetec-chat::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 999px;
+}
 
-@media (max-width: 600px) {
+/* ===== RESPONSIVE ===== */
+
+@media (max-width: 960px) {
   .basetec-card {
-    padding: 16px;
-    max-height: 80vh;
+    padding: 1.4rem 1.3rem 1.3rem;
+  }
+
+  .basetec-chat {
+    max-height: 260px;
   }
 
   .chat-message {
-    max-width: 82%;
+    max-width: 85%;
   }
 }
