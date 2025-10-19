@@ -222,7 +222,7 @@ function ForoTec() {
       <div className="foro-card">
         <div className="foro-header">
           <div>
-            <h2>ForoTEC - Administración</h2>
+            <h1>ForoTEC</h1>
             <p>
               Visualiza, publica y modera las publicaciones realizadas por los
               estudiantes y el profesor.
@@ -235,30 +235,30 @@ function ForoTec() {
         </div>
 
         {cargando ? (
-          <p style={{ padding: "16px 4px" }}>Cargando publicaciones...</p>
+          <p className="foro-empty">Cargando publicaciones...</p>
         ) : posts.length === 0 ? (
-          <p style={{ padding: "16px 4px" }}>No hay publicaciones en el foro.</p>
+          <p className="foro-empty">No hay publicaciones en el foro.</p>
         ) : (
-          <div className="foro-lista">
+          <div className="foro-posts foro-lista">
             {posts.map((post) => {
               const listaComentarios = comentarios[post.id] || [];
               const seleccionado = postSeleccionadoId === post.id;
               const cargandoC = cargandoComentarios[post.id];
 
               return (
-                <div key={post.id} className="foro-post-card">
+                <article key={post.id} className="foro-post-card">
                   <div className="foro-post-header">
                     <div>
                       <h3>{post.titulo}</h3>
-                      <p className="foro-post-meta">
+                      <span className="foro-post-meta">
                         {post.autor} · {post.fecha}
-                      </p>
+                      </span>
                     </div>
                     <button
                       className="btn-eliminar-post"
                       onClick={() => eliminarPost(post.id)}
                     >
-                      Eliminar publicación
+                      Eliminar
                     </button>
                   </div>
 
@@ -272,7 +272,7 @@ function ForoTec() {
 
                   <div className="foro-post-footer">
                     <button
-                      className="btn-ver-respuestas"
+                      className="foro-btn-comentarios"
                       onClick={() => toggleRespuestas(post.id)}
                     >
                       {seleccionado
@@ -317,7 +317,7 @@ function ForoTec() {
                         ))}
                     </div>
                   )}
-                </div>
+                </article>
               );
             })}
           </div>

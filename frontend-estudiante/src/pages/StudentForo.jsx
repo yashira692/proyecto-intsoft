@@ -42,7 +42,6 @@ function StudentForo() {
         titulo: p.titulo,
         contenido: p.contenido,
         autor: p.autor,
-        // 🔹 Spring devuelve "creadoEn", no "creado_en"
         fecha: new Date(p.creadoEn).toLocaleString("es-PE", {
           year: "numeric",
           month: "2-digit",
@@ -109,9 +108,6 @@ function StudentForo() {
     try {
       setEnviandoPost(true);
 
-      // 🔹 OJO: tu backend Spring espera JSON simple.
-      // De momento mantenemos FormData si ya lo adaptaste allí;
-      // si falla, habrá que cambiarlo a JSON.
       const formData = new FormData();
       formData.append("titulo", nuevoPost.titulo);
       formData.append("contenido", nuevoPost.contenido);
@@ -191,7 +187,6 @@ function StudentForo() {
   const fetchComentarios = async (postId) => {
     setCargandoComentarios((prev) => ({ ...prev, [postId]: true }));
     try {
-      // 🔹 AHORA usamos el mismo backend de Spring, no Django
       const res = await fetch(`${POSTS_URL}${postId}/comentarios/`);
       if (!res.ok) {
         const text = await res.text();
@@ -234,7 +229,6 @@ function StudentForo() {
     }
 
     try {
-      // 🔹 También aquí: backend Spring en 8080
       const res = await fetch(`${POSTS_URL}${postId}/comentarios/`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -264,39 +258,53 @@ function StudentForo() {
     }
   };
 
+  const nombreArchivo = nuevoPost.imagenFile?.name || "";
+
   return (
     <div className="foro-page">
       <div className="foro-card">
         <div className="foro-header">
-          <h1>ForoTEC - Estudiante</h1>
-          <p>
-            Publica dudas, avisos o comentarios sobre el proyecto integrador. El
-            docente también puede publicar comunicados.
-          </p>
+          <div>
+            <h1>ForoTEC - Estudiante</h1>
+            <p>
+              Publica dudas, avisos o comentarios sobre el proyecto integrador.
+              El docente también puede publicar comunicados.
+            </p>
+          </div>
         </div>
 
         {/* Formulario de nueva publicación */}
         <form className="foro-form" onSubmit={crearPublicacion}>
-          <input
-            type="text"
-            name="titulo"
-            placeholder="Título de la publicación"
-            value={nuevoPost.titulo}
-            onChange={handleChangePost}
-          />
+          <div className="foro-field">
+            <label className="foro-label">Título</label>
+            <input
+              type="text"
+              name="titulo"
+              className="foro-input"
+              placeholder="Título de la publicación"
+              value={nuevoPost.titulo}
+              onChange={handleChangePost}
+            />
+          </div>
 
-          <textarea
-            name="contenido"
-            placeholder="Escribe aquí tu mensaje..."
-            rows={4}
-            value={nuevoPost.contenido}
-            onChange={handleChangePost}
-          />
+          <div className="foro-field">
+            <label className="foro-label">Mensaje</label>
+            <textarea
+              name="contenido"
+              className="foro-textarea"
+              placeholder="Escribe aquí tu mensaje..."
+              rows={4}
+              value={nuevoPost.contenido}
+              onChange={handleChangePost}
+            />
+          </div>
 
-          <div className="foro-form-row">
-            <div>
-              <label className="foro-label-file">
-                Subir imagen (opcional)
+          <div className="foro-form-footer">
+            <div className="foro-file">
+              <span className="foro-file-label">Subir imagen (opcional)</span>
+
+              <label className="foro-file-btn">
+                Elegir archivo
                 <input
                   type="file"
                   name="imagen"
@@ -304,12 +312,19 @@ function StudentForo() {
                   onChange={handleChangePost}
                 />
               </label>
+
+              <span className="foro-file-name">
+                {nombreArchivo || "No se eligió ningún archivo"}
+              </span>
+
               {nuevoPost.imagenPreview && (
-                <img
-                  src={nuevoPost.imagenPreview}
-                  alt="Previsualización"
-                  className="foro-preview-img"
-                />
+                <div className="foro-preview-img-wrapper">
+                  <img
+                    src={nuevoPost.imagenPreview}
+                    alt="Previsualización"
+                    className="foro-preview-img"
+                  />
+                </div>
               )}
             </div>
 
@@ -426,7 +441,7 @@ function StudentForo() {
           })}
 
           {!cargando && !error && posts.length === 0 && (
-            <p>No hay publicaciones aún.</p>
+            <p className="foro-sin-comentarios">No hay publicaciones aún.</p>
           )}
         </div>
       </div>

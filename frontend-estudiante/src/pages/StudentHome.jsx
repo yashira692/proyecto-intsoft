@@ -4,7 +4,7 @@ function StudentHome() {
   return (
     <div className="home-page">
       <div className="home-card">
-        <h1>Bienvenido a INTSOFT (Estudiante)</h1>
+        <h1>Bienvenido a INTSOFT</h1>
         <p className="home-subtitle">
           Aquí puedes revisar tu grupo de proyecto integrador, hacer preguntas a
           Base TEC y ver los anuncios publicados en el ForoTEC.

@@ -73,7 +73,7 @@ function StudentBaseTec() {
   return (
     <div className="basetec-page">
       <div className="basetec-card">
-        <h1>Base TEC - Estudiante</h1>
+        <h1>Base TEC</h1>
         <p className="basetec-desc">
           Haz tus consultas sobre TECSUP y el Proyecto Integrador.
         </p>

@@ -199,25 +199,37 @@ function Grupos() {
           </button>
         </div>
 
-        {/* 🔍 Barra de filtros */}
-        <div className="grupos-filtros">
-          <input
-            type="text"
-            placeholder="Buscar por número, sección, integrantes, tema..."
-            value={busqueda}
-            onChange={(e) => setBusqueda(e.target.value)}
-          />
-          <select
-            value={filtroSeccion}
-            onChange={(e) => setFiltroSeccion(e.target.value)}
-          >
-            <option value="">Todas las secciones</option>
-            {secciones.map((sec) => (
-              <option key={sec} value={sec}>
-                Sección {sec}
-              </option>
-            ))}
-          </select>
+        {/* 🔍 Barra de filtros con estilo admin */}
+        <div className="grupos-filtros admin-filtros">
+          <div className="admin-filtro">
+            <label className="admin-filtro-label">Buscar</label>
+            <div className="admin-filtro-input-wrapper">
+              <span className="admin-filtro-icon">🔎</span>
+              <input
+                className="admin-filtro-input"
+                type="text"
+                placeholder="Número de grupo, sección, integrantes o tema..."
+                value={busqueda}
+                onChange={(e) => setBusqueda(e.target.value)}
+              />
+            </div>
+          </div>
+
+          <div className="admin-filtro">
+            <label className="admin-filtro-label">Sección</label>
+            <select
+              className="admin-filtro-select"
+              value={filtroSeccion}
+              onChange={(e) => setFiltroSeccion(e.target.value)}
+            >
+              <option value="">Todas las secciones</option>
+              {secciones.map((sec) => (
+                <option key={sec} value={sec}>
+                  Sección {sec}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
 
         {cargando ? (

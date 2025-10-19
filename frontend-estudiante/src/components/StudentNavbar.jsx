@@ -14,7 +14,7 @@ function StudentNavbar() {
 
   return (
     <header className="navbar">
-      <div className="navbar-top">INTSOFT - Estudiante</div>
+      <div className="navbar-top">INTSOFT</div>
 
       <nav className="navbar-bottom">
         <div className="navbar-links">

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import "./StudentGrupos.css";
 
 const API_GRUPOS = "http://127.0.0.1:8080/api/grupos/";
+// AJUSTA este endpoint/puerto si tu backend de feedback está en otro lado
 const API_FEEDBACK = "http://127.0.0.1:8080/api/group-feedback";
 
 function StudentGrupos() {
@@ -23,6 +24,7 @@ function StudentGrupos() {
   const [enviandoFeedback, setEnviandoFeedback] = useState(false);
   const [errorFeedback, setErrorFeedback] = useState("");
 
+  // cargar grupos
   useEffect(() => {
     const fetchGrupos = async () => {
       setCargando(true);
@@ -152,22 +154,34 @@ function StudentGrupos() {
 
         {/* filtros */}
         <div className="grupos-filtros-est">
-          <input
-            type="text"
-            placeholder="Buscar por número, sección, integrantes o tema"
-            value={busqueda}
-            onChange={(e) => setBusqueda(e.target.value)}
-          />
-          <select
-            value={seccionFiltro}
-            onChange={(e) => setSeccionFiltro(e.target.value)}
-          >
-            <option value="TODAS">Todas las secciones</option>
-            <option value="A">Sección A</option>
-            <option value="B">Sección B</option>
-            <option value="C">Sección C</option>
-            <option value="D">Sección D</option>
-          </select>
+          <div className="filtro-busqueda">
+            <label className="filtro-label">Buscar</label>
+            <div className="filtro-input-wrapper">
+              <span className="filtro-icon">🔍</span>
+              <input
+                type="text"
+                className="filtro-input"
+                placeholder="Número de grupo, sección, integrantes o tema..."
+                value={busqueda}
+                onChange={(e) => setBusqueda(e.target.value)}
+              />
+            </div>
+          </div>
+
+          <div className="filtro-seccion">
+            <label className="filtro-label">Sección</label>
+            <select
+              className="filtro-select"
+              value={seccionFiltro}
+              onChange={(e) => setSeccionFiltro(e.target.value)}
+            >
+              <option value="TODAS">Todas las secciones</option>
+              <option value="A">Sección A</option>
+              <option value="B">Sección B</option>
+              <option value="C">Sección C</option>
+              <option value="D">Sección D</option>
+            </select>
+          </div>
         </div>
 
         {cargando && <p>Cargando grupos...</p>}
@@ -200,6 +214,8 @@ function StudentGrupos() {
           ))}
         </div>
       </div>
+
+      
     </div>
   );
 }
