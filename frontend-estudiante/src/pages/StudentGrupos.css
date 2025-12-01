@@ -1,0 +1,53 @@
+.grupos-page {
+  min-height: calc(100vh - 60px);
+  background: #f3f4f6;
+  padding: 30px 40px;
+}
+
+.grupos-card-est {
+  max-width: 1150px;
+  margin: 0 auto;
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 24px 26px;
+  box-shadow: 0 15px 35px rgba(15, 23, 42, 0.08);
+}
+
+.grupos-header-est h1 {
+  font-size: 22px;
+  margin-bottom: 4px;
+}
+
+.grupos-header-est p {
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.grupos-grid-est {
+  margin-top: 18px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 14px;
+}
+
+.grupo-item-est {
+  border-radius: 16px;
+  border: 1px solid #e5e7eb;
+  padding: 12px 14px;
+  background: #f9fafb;
+}
+
+.grupo-item-est h2 {
+  font-size: 16px;
+  margin-bottom: 6px;
+}
+
+.grupo-item-est p {
+  font-size: 14px;
+  margin-bottom: 2px;
+}
+
+.error-text {
+  color: #b91c1c;
+  margin-top: 12px;
+}

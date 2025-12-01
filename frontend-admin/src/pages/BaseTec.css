@@ -1,0 +1,148 @@
+.basetec-page {
+  display: flex;
+  justify-content: center;
+  padding: 32px 16px;
+}
+
+.basetec-card {
+  width: 100%;
+  max-width: 900px;
+  background: white;
+  border-radius: 24px;
+  padding: 20px 24px 16px;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.16);
+  display: flex;
+  flex-direction: column;
+  max-height: 75vh;
+}
+
+.basetec-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.basetec-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  background: #4f46e5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 22px;
+}
+
+.basetec-header h2 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.basetec-header p {
+  margin: 2px 0 0;
+  font-size: 13px;
+  color: #64748b;
+}
+
+/* ÁREA DEL CHAT */
+
+.basetec-chat {
+  margin-top: 14px;
+  flex: 1;
+  background: #f5f7ff;
+  border-radius: 16px;
+  padding: 12px 10px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Mensajes */
+
+.chat-message {
+  max-width: 70%;
+  padding: 8px 12px;
+  border-radius: 14px;
+  font-size: 14px;
+  line-height: 1.4;
+  white-space: pre-wrap; /* respeta saltos de línea de la IA */
+}
+
+/* Bot: izquierda, burbuja blanca */
+
+.chat-bot {
+  align-self: flex-start;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-bottom-left-radius: 4px;
+}
+
+/* Usuario: derecha, burbuja azul */
+
+.chat-user {
+  align-self: flex-end;
+  background: #4f46e5;
+  color: white;
+  border-bottom-right-radius: 4px;
+}
+
+/* Input de mensaje */
+
+.basetec-input-area {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+  align-items: center;
+}
+
+.basetec-input-area input {
+  flex: 1;
+  padding: 10px 14px;
+  border-radius: 999px;
+  border: 1px solid #d0d7e2;
+  font-size: 14px;
+  outline: none;
+}
+
+.basetec-input-area input:focus {
+  border-color: #4f46e5;
+  box-shadow: 0 0 0 1px rgba(79, 70, 229, 0.15);
+}
+
+.basetec-input-area button {
+  padding: 9px 18px;
+  border-radius: 999px;
+  border: none;
+  background: #4f46e5;
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.basetec-input-area button[disabled] {
+  opacity: 0.7;
+  cursor: default;
+}
+
+.basetec-input-area button:hover:not([disabled]) {
+  background: #4338ca;
+}
+
+/* Responsive */
+
+@media (max-width: 600px) {
+  .basetec-card {
+    padding: 16px;
+    max-height: 80vh;
+  }
+
+  .chat-message {
+    max-width: 82%;
+  }
+}

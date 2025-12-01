@@ -1,0 +1,192 @@
+/* ===========================
+   CONTENEDOR GENERAL
+   =========================== */
+.foro-page {
+  min-height: calc(100vh - 60px);
+  background: #f3f4f6;
+  padding: 30px 0;
+  display: flex;
+  justify-content: center;
+}
+
+.foro-card {
+  width: 90%;
+  max-width: 1100px;
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 28px 32px;
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+}
+
+/* ===========================
+   HEADER
+   =========================== */
+.foro-header h1 {
+  font-size: 26px;
+  margin-bottom: 6px;
+  color: #111827;
+}
+
+.foro-header p {
+  color: #6b7280;
+  font-size: 15px;
+  margin-bottom: 20px;
+}
+
+/* ===========================
+   FORMULARIO
+   =========================== */
+.foro-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.foro-form input[type="text"],
+.foro-form textarea {
+  width: 100%;
+  padding: 12px;
+  font-size: 15px;
+  border-radius: 10px;
+  border: 1px solid #d1d5db;
+  outline: none;
+}
+
+.foro-form textarea {
+  resize: none;
+}
+
+.foro-form input:focus,
+.foro-form textarea:focus {
+  border-color: #2563eb;
+}
+
+/* ===========================
+   FOTO
+   =========================== */
+.foro-label-file {
+  font-size: 14px;
+  cursor: pointer;
+  color: #0b61ff;
+  font-weight: 500;
+}
+
+.foro-label-file input {
+  display: block;
+  margin-top: 4px;
+}
+
+.foro-preview-img {
+  margin-top: 8px;
+  width: 120px;
+  height: auto;
+  border-radius: 10px;
+  border: 1px solid #d1d5db;
+}
+
+/* ===========================
+   BOTÓN PUBLICAR
+   =========================== */
+.foro-form-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.foro-btn-publicar {
+  background: #0b61ff;
+  color: #ffffff;
+  border: none;
+  padding: 10px 22px;
+  border-radius: 10px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.foro-btn-publicar:hover {
+  background: #084bcc;
+}
+
+/* ===========================
+   LISTA DE POSTS
+   =========================== */
+.foro-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ===========================
+   TARJETA DE POST
+   =========================== */
+.foro-post-card {
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 16px;
+}
+
+.foro-post-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.foro-post-header h3 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.foro-post-meta {
+  font-size: 13px;
+  color: #6b7280;
+  margin-top: 2px;
+}
+
+.foro-post-img-wrapper {
+  margin-top: 12px;
+}
+
+.foro-post-img-wrapper img {
+  max-width: 100%;
+  border-radius: 12px;
+  border: 1px solid #d1d5db;
+}
+
+/* ===========================
+   CONTENIDO DEL POST
+   =========================== */
+.foro-post-contenido {
+  margin-top: 10px;
+  font-size: 15px;
+  color: #374151;
+  white-space: pre-line;
+}
+
+/* ===========================
+   BOTÓN ELIMINAR POST
+   =========================== */
+.btn-eliminar-post {
+  background: #ef4444;
+  color: #ffffff;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.btn-eliminar-post:hover {
+  background: #dc2626;
+}
+
+/* ===========================
+   ERRORES
+   =========================== */
+.error-text {
+  color: #b91c1c;
+  font-size: 14px;
+  margin-top: 10px;
+}

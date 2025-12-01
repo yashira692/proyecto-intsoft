@@ -1,0 +1,262 @@
+.foro-page {
+  min-height: calc(100vh - 60px);
+  background: #f5f7fb;
+  padding: 30px 0;
+  display: flex;
+  justify-content: center;
+  box-sizing: border-box;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+}
+
+.foro-card {
+  width: 80%;
+  max-width: 900px;
+  background: #ffffff;
+  border-radius: 24px;
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.1);
+  padding: 20px 24px 22px;
+}
+
+.foro-header h2 {
+  margin: 0;
+  font-size: 20px;
+}
+
+.foro-header p {
+  margin: 4px 0 0;
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.foro-lista {
+  margin-top: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.foro-post-card {
+  border-radius: 18px;
+  border: 1px solid #e5e7eb;
+  padding: 14px 16px 10px;
+  background: #f9fafb;
+}
+
+.foro-post-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.foro-post-header h3 {
+  margin: 0;
+  font-size: 16px;
+}
+
+.foro-post-meta {
+  margin: 2px 0 0;
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.foro-post-contenido {
+  margin: 10px 0 8px;
+  font-size: 14px;
+  color: #111827;
+}
+
+.foro-post-footer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.btn-ver-respuestas {
+  border: none;
+  background: transparent;
+  color: #2563eb;
+  font-size: 13px;
+  cursor: pointer;
+  padding: 0;
+}
+
+.btn-ver-respuestas:hover {
+  text-decoration: underline;
+}
+
+.btn-eliminar-post {
+  border-radius: 999px;
+  border: none;
+  background: #dc2626;
+  color: #ffffff;
+  font-size: 12px;
+  padding: 6px 10px;
+  cursor: pointer;
+}
+
+.btn-eliminar-post:hover {
+  opacity: 0.9;
+}
+
+.foro-respuestas {
+  margin-top: 10px;
+  border-top: 1px dashed #e5e7eb;
+  padding-top: 8px;
+}
+
+.foro-respuesta-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 0;
+}
+
+.foro-respuesta-texto {
+  flex: 1;
+}
+
+.foro-respuesta-contenido {
+  margin: 0;
+  font-size: 14px;
+}
+
+.foro-respuesta-meta {
+  margin: 2px 0 0;
+  font-size: 11px;
+  color: #6b7280;
+}
+
+.foro-sin-respuestas {
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.btn-eliminar-respuesta {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 16px;
+  color: #dc2626;
+}
+/* Botón nueva publicación en el header */
+.btn-nueva-publicacion {
+  border-radius: 999px;
+  border: none;
+  background: #111827;
+  color: #ffffff;
+  font-size: 13px;
+  padding: 7px 14px;
+  cursor: pointer;
+}
+
+.btn-nueva-publicacion:hover {
+  opacity: 0.9;
+}
+
+/* Imagen dentro del post */
+.foro-post-imagen {
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+.foro-post-imagen img {
+  max-width: 100%;
+  border-radius: 12px;
+  display: block;
+}
+
+/* ==== MODAL NUEVA PUBLICACIÓN ==== */
+
+.foro-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 40;
+}
+
+.foro-modal-card {
+  width: 480px;
+  max-width: 95%;
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 18px 20px 16px;
+  box-shadow: 0 25px 60px rgba(15, 23, 42, 0.5);
+}
+
+.foro-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.foro-modal-header h3 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.foro-modal-close {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 20px;
+  color: #6b7280;
+}
+
+.foro-modal-close:hover {
+  color: #111827;
+}
+
+.foro-modal-form label {
+  display: block;
+  font-size: 13px;
+  margin-bottom: 4px;
+  color: #374151;
+}
+
+.foro-modal-field {
+  margin-bottom: 12px;
+}
+
+.foro-modal-form input[type="text"],
+.foro-modal-form textarea {
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 10px;
+  border: 1px solid #e5e7eb;
+  font-size: 14px;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.foro-modal-form input[type="file"] {
+  font-size: 13px;
+}
+
+.foro-modal-form input:focus,
+.foro-modal-form textarea:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 1px rgba(37, 99, 235, 0.2);
+}
+
+.foro-modal-preview {
+  margin-top: 8px;
+}
+
+.foro-modal-preview img {
+  max-width: 100%;
+  border-radius: 12px;
+  display: block;
+}
+
+.foro-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 6px;
+}
